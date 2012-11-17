@@ -8,11 +8,11 @@
 /**
  * Include validators that override some of Lithium's default validators
  */
-require dirname(dirname(__DIR__)) . '/validators/overridden.php';
+require dirname(__DIR__) . '/validators/overridden.php';
 
 /**
  * Include validators that doesn't affect Lithium's default validators
  */
-//require dirname(dirname(__DIR__)) . '/validators/custom.php';
+require dirname(__DIR__) . '/validators/custom.php';
 
 ?>
