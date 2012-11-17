@@ -8,16 +8,21 @@
 use lithium\util\Validator;
 
 /**
- * - `email`: Check that value is valid email. The available options are
- *   `'mx'` boolean that enable validator to check if MX DNS record exists and
- *   `'pattern'` mixed `false` to use `filter_var()` function (default in lithium)
- *   or regex to check against. By default this filter check against custom regex
- *   that doesn't match all [RFC 5322](http://tools.ietf.org/html/rfc5322) valid
- *   emails, but will match against most correct emails, and doesn't check domain
- *   against MX DNS record. With combinations of this options you can achieve
- *   enough validations, including lithium's default (`'mx' => false, 'pattern' => false` ).
+ * Placeholder for custom validators
  */
-Validator::add('email', function($value, $format, $options) {
+$overriddenValidators = array();
+
+/**
+ * Check that value is valid email. The available options are
+ *  `'mx'` boolean that enable validator to check if MX DNS record exists and
+ *  `'pattern'` mixed `false` to use `filter_var()` function (default in lithium)
+ * or regex to check against. By default this filter check against custom regex
+ * that doesn't match all [RFC 5322](http://tools.ietf.org/html/rfc5322) valid
+ * emails, but will match against most correct emails, and doesn't check domain
+ * against MX DNS record. With combinations of this options you can achieve
+ * enough validations, including lithium's default (`'mx' => false, 'pattern' => false` ).
+ */
+$overriddenValidators['email'] = function($value, $format, $options) {
 	$defaults = array(
 		'mx' => false,
 		'pattern' => '/^[a-z0-9][a-z0-9_.-]*@[a-z0-9.-]{3,}\.[a-z]{2,4}$/i'
@@ -36,4 +41,11 @@ Validator::add('email', function($value, $format, $options) {
 		$valid = checkdnsrr(end(explode('@', $value)), 'MX');
 	}
 	return $valid;
-});
+};
+
+/**
+ * Initialize overridden validators
+ */
+Validator::add($overriddenValidators);
+
+?>
