@@ -8,7 +8,7 @@
 use lithium\util\Validator;
 
 /**
- * Placeholder for custom validators
+ * Placeholder for overriden validators
  */
 $overriddenValidators = array();
 
