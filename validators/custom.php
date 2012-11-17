@@ -16,26 +16,20 @@ $customValidators = array();
 /**
  * Ensure that entered value is unique in database
  * The available options are:
- *  `original` array Original values to enable update event. You don't need to set this option if
- * you use this validator just on create. But update need to know original values to enable partial
- * update.
+ *  `key` string Database table key
+ *  `keyValue` string Setup  key value if you don't want to fetch it from 'values'
  */
 $customValidators['unique'] = function($value, $format, $options) {
-	$options += array('original' => array());
-	$find = $options['model']::first(array('conditions' => array(
+	$options += array('key' => 'id', 'keyValue' => null);
+	$conditions = array(
 		$options['field'] => $value
-	)));
-	switch ($options['events']) {
-		case 'create':
-			return !$find;
-		case 'update':
-			if (isset($options['original'][$options['field']])) {
-				return $value === $options['original'][$options['field']];
-			}
-			return !$find;
-		default:
-			return false;
+	);
+	if ($options['events'] === 'update') {
+		$key = $options['key'];
+		$keyValue = ($options['keyValue']) ? $options['keyValue'] : $options['values'][$key];
+		$conditions[$key] = array('!=' => $keyValue);
 	}
+	return !(boolean) $options['model']::first(array('conditions' => $conditions));
 };
 
 /**
