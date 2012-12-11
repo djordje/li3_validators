@@ -38,7 +38,8 @@ $overriddenValidators['email'] = function($value, $format, $options) {
 			break;
 	}
 	if ($valid && $options['mx'] && function_exists('checkdnsrr')) {
-		$valid = checkdnsrr(end(explode('@', $value)), 'MX');
+		$emailParts = explode('@', $value);
+		$valid = checkdnsrr(end($emailParts), 'MX');
 	}
 	return $valid;
 };
