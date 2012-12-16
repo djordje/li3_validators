@@ -53,11 +53,11 @@ class MockUser extends \lithium\tests\mocks\data\MockBase {
 						}
 					}
 					if ($result) {
-						return new Record(array('data' => array($result[0]), 'model' => __CLASS__));
+						return new Record(array('data' => $result[0], 'model' => __CLASS__));
 					}
 					return null;
 				}
-				return new Record(array('data' => array($users[0]), 'model' => __CLASS__));
+				return new Record(array('data' => $users[0], 'model' => __CLASS__));
 			case 'all':
 			default:
 				return new Record(array('data' => $users, 'model' => __CLASS__));
