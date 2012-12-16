@@ -39,7 +39,7 @@ $customValidators['unique'] = function($value, $format, $options) {
  * Direct will compare raw values against desired field
  * Password will use `Password::check()`
  *  `against` string If we doesn't setup this option validator will assume that field against we
- * compare have sam name without `compare_` prefix. Eg.:
+ * compare have sam name without `confirm_` prefix. Eg.:
  * 'confirm_email' will check against 'email' if we doesn't specify this option.
  */
 $customValidators['confirm'] = function($value, $format, $options) {

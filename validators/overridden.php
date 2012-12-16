@@ -20,7 +20,7 @@ $overriddenValidators = array();
  * that doesn't match all [RFC 5322](http://tools.ietf.org/html/rfc5322) valid
  * emails, but will match against most correct emails, and doesn't check domain
  * against MX DNS record. With combinations of this options you can achieve
- * enough validations, including lithium's default (`'mx' => false, 'pattern' => false` ).
+ * enough validations, including lithium's default (`'mx' => false, 'pattern' => false`).
  */
 $overriddenValidators['email'] = function($value, $format, $options) {
 	$defaults = array(
