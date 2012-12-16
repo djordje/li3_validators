@@ -102,6 +102,38 @@ class CustomTest extends \lithium\test\Unit {
 		$this->assertTrue(!empty($validate));
 	}
 
+	public function testDependencies() {
+		$values = array('field_one' => 'some value', 'field_one_dep' => 'incorrect');
+		$rules = array(
+			'field_one' => array(
+				'dependencies', 'message' => 'Dependencies not correct!',
+				'conditions' => array(array('field_one_dep', '===', 'correct'))
+			)
+		);
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(!empty($validate));
+
+		$values['field_one_dep'] = 'correct';
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(empty($validate));
+
+		$values = array('name' => 'John Doe', 'gender' => 'M', 'height' => 198);
+		$rules = array(
+			'name' => array(
+				'dependencies', 'message' => 'Dependencies not correct!',
+				'conditions' => array(
+					array('gender', '===', 'M'), '&&', array('height', '>', 195)
+				)
+			)
+		);
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(empty($validate));
+
+		$values['height'] = 195;
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(!empty($validate));
+	}
+
 }
 
 ?>
