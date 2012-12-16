@@ -5,6 +5,7 @@ namespace li3_validators\tests\cases\validators;
 use lithium\security\Password;
 use lithium\util\Validator;
 use li3_validators\tests\mocks\MockUserUniqueValidator;
+use li3_validators\tests\mocks\MockUserCompareWithOldDbValueValidator;
 
 class CustomTest extends \lithium\test\Unit {
 
@@ -132,6 +133,14 @@ class CustomTest extends \lithium\test\Unit {
 		$values['height'] = 195;
 		$validate = Validator::check($values, $rules);
 		$this->assertTrue(!empty($validate));
+	}
+
+	public function testCompareWithOldDbValue() {
+		$user = MockUserCompareWithOldDbValueValidator::create(array('old' => 'user2', 'id' =>2));
+
+		$this->assertTrue($user->validates(array('events' => 'test_old_name')));
+
+		$this->assertTrue($user->validates(array('events' => 'test_old_password')));
 	}
 
 }

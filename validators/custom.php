@@ -71,6 +71,34 @@ $customValidators['dependencies'] = function($value, $format, $options) {
 };
 
 /**
+ * Compare value with existing value in database
+ * The available options are:
+ *  `strategy` string (direct|password)
+ *  `findBy` string Field name that will be used as condition for finding original value
+ *  `field` string Original field name
+ */
+$customValidators['compareWithOldDbValue'] = function($value, $format, $options) {
+	$options += array('field' => '', 'findBy' => 'id', 'strategy' => 'direct');
+	if ($options['field'] && $options['values'][$options['findBy']]) {
+		$data = $options['model']::first(array(
+			'conditions' => array($options['findBy'] => $options['values'][$options['findBy']]),
+			'fields' => $options['field']
+		));
+		if ($data) {
+			switch ($options['strategy']) {
+				case 'direct':
+					return $value === $data->{$options['field']};
+				case 'password':
+					return Password::check($value, $data->{$options['field']});
+				default:
+					return false;
+			}
+		}
+	}
+	return false;
+};
+
+/**
  * Initialize custom validators
  */
 Validator::add($customValidators);
