@@ -99,6 +99,35 @@ $customValidators['compareWithOldDbValue'] = function($value, $format, $options)
 };
 
 /**
+ * Works same as Lithium's `inRange` validator but require conditions `true` to continue
+ * @see \li3_validators\extensions\util\EvalComparation::build()
+ */
+$customValidators['conditionalInRange'] = function($value, $format, $options) {
+	$options += array('upper' => null, 'lower' => null, 'conditions' => array());
+	$conditions = true;
+
+	if (!is_numeric($value)) {
+		return false;
+	}
+	if (!empty($options['conditions'])) {
+		$conditions = eval(EvalComparation::build($options));
+		if (!$conditions) {
+			return true;
+		}
+	}
+
+	switch (true) {
+		case (!is_null($options['upper']) && !is_null($options['lower'])):
+			return ($value > $options['lower'] && $value < $options['upper']);
+		case (!is_null($options['upper'])):
+			return ($value < $options['upper']);
+		case (!is_null($options['lower'])):
+			return ($value > $options['lower']);
+	}
+	return is_finite($value);
+};
+
+/**
  * Initialize custom validators
  */
 Validator::add($customValidators);
