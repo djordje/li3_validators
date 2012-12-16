@@ -143,6 +143,38 @@ class CustomTest extends \lithium\test\Unit {
 		$this->assertTrue($user->validates(array('events' => 'test_old_password')));
 	}
 
+	public function testConditionalInRange() {
+		$values = array('height' => 195, 'gender' => 'M');
+		$rules = array(
+			'height' => array(
+				array(
+					'conditionalInRange', 'message' => 'Incorrect value for given condition!',
+					'upper' => 201, 'lower' => 184,
+					'conditions' => array(array('gender', '===', 'M'))
+				),
+				array(
+					'conditionalInRange', 'message' => 'Incorrect value for given condition!',
+					'upper' => 186, 'lower' => 167,
+					'conditions' => array(array('gender', '===', 'W'))
+				)
+			)
+		);
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(empty($validate));
+
+		$values['gender'] = 'W';
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(!empty($validate));
+
+		$values['height'] = 171;
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(empty($validate));
+
+		$values['height'] = 165;
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(!empty($validate));
+	}
+
 }
 
 ?>
