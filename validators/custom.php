@@ -7,6 +7,7 @@
 
 use lithium\util\Validator;
 use lithium\security\Password;
+use li3_validators\extensions\util\EvalComparation;
 
 /**
  * Placeholder for custom validators
@@ -58,6 +59,15 @@ $customValidators['confirm'] = function($value, $format, $options) {
 		default:
 			return false;
 	}
+};
+
+/**
+ * Check field dependencies
+ * @see \li3_validators\extensions\util\EvalComparation::build()
+ */
+$customValidators['dependencies'] = function($value, $format, $options) {
+	$options += array('conditions' => array());
+	return eval(EvalComparation::build($options));
 };
 
 /**
