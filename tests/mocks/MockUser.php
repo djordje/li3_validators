@@ -7,10 +7,6 @@ use lithium\security\Password;
 
 class MockUser extends \lithium\tests\mocks\data\MockBase {
 
-	public $validates = array(
-		'username' => array('unique', 'message' => 'Username must be unique!')
-	);
-
 	public static $connection = null;
 
 	protected $_meta = array('connection' => false, 'key' => 'id');
