@@ -4,18 +4,18 @@ namespace li3_validators\tests\cases\validators;
 
 use lithium\security\Password;
 use lithium\util\Validator;
-use li3_validators\tests\mocks\MockUser;
+use li3_validators\tests\mocks\MockUserUniqueValidator;
 
 class CustomTest extends \lithium\test\Unit {
 
 	public function testUnique() {
-		$user = MockUser::create(array('username' => 'user2'));
+		$user = MockUserUniqueValidator::create(array('username' => 'user2'));
 		$this->assertFalse($user->validates());
 
 		$user->username = 'user4';
 		$this->assertTrue($user->validates());
 
-		$user = MockUser::create(
+		$user = MockUserUniqueValidator::create(
 			array('id' => 2), array('exists' => true)
 		);
 
