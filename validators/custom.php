@@ -67,6 +67,9 @@ $customValidators['confirm'] = function($value, $format, $options) {
  */
 $customValidators['dependencies'] = function($value, $format, $options) {
 	$options += array('conditions' => array());
+	if (empty($options['conditions'])) {
+		return true;
+	}
 	return eval(EvalComparation::build($options));
 };
 

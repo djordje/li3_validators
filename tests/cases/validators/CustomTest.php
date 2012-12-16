@@ -133,6 +133,13 @@ class CustomTest extends \lithium\test\Unit {
 		$values['height'] = 195;
 		$validate = Validator::check($values, $rules);
 		$this->assertTrue(!empty($validate));
+
+		$values = array('name' => 'John Doe', 'gender' => 'M', 'height' => 198);
+		$rules = array(
+			'name' => array('dependencies', 'message' => 'Dependencies not correct!')
+		);
+		$validate = Validator::check($values, $rules);
+		$this->assertTrue(empty($validate));
 	}
 
 	public function testCompareWithOldDbValue() {
