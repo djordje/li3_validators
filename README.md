@@ -13,6 +13,37 @@
 * **[Eval comparation builder](#eval-comparation-builder)**
 * **[Project status](#project-status)**
 
+## Installation adn usage:
+
+**Git clone:**
+
+```
+	cd path/to/libraries
+	git clone git://github.com/djordje/li3_validators.git
+```
+
+**Or trough _composer_:**
+
+Add this to yout `composer.json` file:
+
+```
+	{
+		"minimum-stability": "dev",
+		"require": {
+			"djordje/li3_validators": "dev-master"
+		}
+	}
+```
+
+After either of these two steps open `app/config/bootstrap/libraries.php` with your editor and add
+this to bootom of the file:
+
+`Libraries::add('li3_validators')`
+
+Now you can use this validators in your model just as any other bundled or added validator!
+
+___
+
 ## Custom validators:
 
 ###### Unique validator
