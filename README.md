@@ -3,11 +3,11 @@
 ## Table of content:
 
 * **[Custom validators:](#custom-validators)**
-  * Unique
-  * Confirm
-  * Dependencies
-  * Compare with old db value
-  * Conditional in range
+  * [Unique](#unique-validator)
+  * [Confirm](#confirm-validator)
+  * [Dependencies](#dependencies-validator)
+  * [Compare with old db value](#compare-with-old-db-value-validator)
+  * [Conditional in range](#conditional-in-range-validator)
 * **[Overridden validators:](#overridden-validators)**
   * [Email](#email-validator)
 * **[Eval comparation builder](#eval-comparation-builder)**
@@ -15,12 +15,130 @@
 
 ## Custom validators:
 
+###### Unique validator
+
+**Name:** `'unique'`
+
+Ensure that entered value is unique in database. If `'events'` is *update* do query with provided options
+
+**Options:**
+
+`'key'` string - Database table key that will be used as condition key if `'events'` is update, by default `'id'`
+
+`'keyValue'` string - Setup key value if you don't want to fetch it from `'values'` field, by default `null`
+ which means that field fetch value of `$options['values']['id']` if you don't change `'key'`
+
+
+###### Confirm validator
+
+**Name:** `'confirm'`
+
+Confirm that this field is equal to field against we compare.
+
+**Options:**
+
+`'strategy'` string (direct|password) - Default is `'direct'` which means we compare value against
+desired field directly `'string' === 'string'`. If we set this to `'password'` validator use
+`Password::check()` for comparing value against desired field
+
+`'against'` string - By default this is `null` which means we will compare this field against same
+named field with `confirm_` prefix, eg. `email` against `confirm_email`, or we can set field name
+against we want to compare
+
+
+###### Dependencies validator
+
+**Name:** `'dependencies'`
+
+Check field dependencies. Evaluate conditions to see if all dependencies are correct
+
+**Options:**
+
+`'conditions'` array - [Eval comparation builder](#eval-comparation-builder) compatible conditions array
+
+Example:
+
+```
+
+	$options = array('conditions' => array(
+		array('gender', '===', 'M')
+	));
+
+```
+
+This field will require `'gender'` field equal to `'M'`
+
+
+###### Compare with old db value validator
+
+**Name:** `'compareWithOldDbValue'`
+
+Compare value with existing value in database
+
+**Options:**
+
+`'strategy'` string (direct|password) - Default is `'direct'` which means we compare value against
+desired field directly `'string' === 'string'`. If we set this to `'password'` validator use
+`Password::check()` for comparing value against desired field
+
+`'findBy'` string - Field name that will be used as condition for finding original value, default is `'id'`
+
+`'field'` string - Original field name
+
+Example:
+
+```
+
+	$options = array(
+		'strategy' => 'password',
+		'field' => 'password'
+	);
+
+```
+
+This validator will assume that value of this field, for example `'old_password'` is equal to the
+value of `'password'` field where `'id'` is equal to current `'id'`
+
+
+###### Conditional in range validator
+
+**Name:** `'condtionalInRange'`
+
+This validator is very similar to Lithium's `'inRange'` validator, but require conditions to be `true`
+as well
+
+**Options:**
+
+`'upper'` integer
+
+`'lower'` integer
+
+`'conditions'` array - [Eval comparation builder](#eval-comparation-builder) compatible conditions array
+
+Example:
+
+```
+
+	$options = array(
+		'lower' => 169, 'upper' => '206',
+		'conditions' => array(
+        	array('gender', '===', 'M')
+        )
+	);
+
+```
+
+This assume that value of this field (for example `'height'`) is greater than 169 and smaller than
+206 just if `'gender'` field exists and is qual to `'M'`
+
 ___
 
 
 ## Overridden validators:
 
 ###### Email validator
+
+**Name:** `'email'`
 
 **Options:**
 
