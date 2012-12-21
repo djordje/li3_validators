@@ -1,7 +1,10 @@
 # Collection of reusable validators for [Lithium PHP Framework](https://github.com/UnionOfRAD/lithium)
 
+___
+
 ## Table of content:
 
+* **[Instalation and usage](#installation-and-usage)**
 * **[Custom validators:](#custom-validators)**
   * [Unique](#unique-validator)
   * [Confirm](#confirm-validator)
@@ -44,6 +47,8 @@ Now you can use this validators in your model just as any other bundled or added
 
 ___
 
+
+
 ## Custom validators:
 
 ###### Unique validator
@@ -77,6 +82,7 @@ named field with `confirm_` prefix, eg. `email` against `confirm_email`, or we c
 against we want to compare
 
 
+
 ###### Dependencies validator
 
 **Name:** `'dependencies'`
@@ -98,6 +104,7 @@ Example:
 ```
 
 This field will require `'gender'` field equal to `'M'`
+
 
 
 ###### Compare with old db value validator
@@ -129,6 +136,7 @@ Example:
 
 This validator will assume that value of this field, for example `'old_password'` is equal to the
 value of `'password'` field where `'id'` is equal to current `'id'`
+
 
 
 ###### Conditional in range validator
@@ -165,6 +173,7 @@ This assume that value of this field (for example `'height'`) is greater than 16
 ___
 
 
+
 ## Overridden validators:
 
 ###### Email validator
@@ -186,6 +195,7 @@ emails, and doesn't check domain against MX DNS record.
 `'mx' => false, 'pattern' => '/^[a-z0-9][a-z0-9_.-]*@[a-z0-9.-]{3,}\.[a-z]{2,4}$/i'`
 
 ___
+
 
 
 ## Eval comparation builder:
@@ -245,6 +255,7 @@ You can build nested conditions as well:
 ```
 
 ___
+
 
 
 ## Project status
