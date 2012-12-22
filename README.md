@@ -27,7 +27,7 @@ ___
 
 **Or trough _composer_:**
 
-Add this to yout `composer.json` file:
+Add this to your `composer.json` file:
 
 ```
 	{
@@ -168,7 +168,7 @@ Example:
 ```
 
 This assume that value of this field (for example `'height'`) is greater than 169 and smaller than
-206 just if `'gender'` field exists and is qual to `'M'`
+206 just if `'gender'` field exists and is equal to `'M'`
 
 ___
 
