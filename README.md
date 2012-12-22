@@ -64,6 +64,7 @@ Ensure that entered value is unique in database. If `'events'` is *update* do qu
 `'keyValue'` string - Setup key value if you don't want to fetch it from `'values'` field, by default `null`
  which means that field fetch value of `$options['values']['id']` if you don't change `'key'`
 
+___
 
 ###### Confirm validator
 
@@ -81,7 +82,7 @@ desired field directly `'string' === 'string'`. If we set this to `'password'` v
 named field with `confirm_` prefix, eg. `email` against `confirm_email`, or we can set field name
 against we want to compare
 
-
+___
 
 ###### Dependencies validator
 
@@ -95,7 +96,7 @@ Check field dependencies. Evaluate conditions to see if all dependencies are cor
 
 Example:
 
-```
+```php
 
 	$options = array('conditions' => array(
 		array('gender', '===', 'M')
@@ -105,7 +106,7 @@ Example:
 
 This field will require `'gender'` field equal to `'M'`
 
-
+___
 
 ###### Compare with old db value validator
 
@@ -125,7 +126,7 @@ desired field directly `'string' === 'string'`. If we set this to `'password'` v
 
 Example:
 
-```
+```php
 
 	$options = array(
 		'strategy' => 'password',
@@ -137,7 +138,7 @@ Example:
 This validator will assume that value of this field, for example `'old_password'` is equal to the
 value of `'password'` field where `'id'` is equal to current `'id'`
 
-
+___
 
 ###### Conditional in range validator
 
@@ -156,7 +157,7 @@ as well
 
 Example:
 
-```
+```php
 
 	$options = array(
 		'lower' => 169, 'upper' => '206',
@@ -172,7 +173,7 @@ This assume that value of this field (for example `'height'`) is greater than 16
 
 ___
 
-
+___
 
 ## Overridden validators:
 
@@ -196,7 +197,7 @@ emails, and doesn't check domain against MX DNS record.
 
 ___
 
-
+___
 
 ## Eval comparation builder:
 
@@ -210,7 +211,7 @@ ___
 
 Best way to understand this utility method is example:
 
-```
+```php
 
 	$options = array(
 		'conditions' => array(array('name', '===', 'diff_test_name')),
@@ -237,7 +238,7 @@ Best way to understand this utility method is example:
 
 You can build nested conditions as well:
 
-```
+```php
 
 	$options = array(
 		'conditions' => array(
@@ -255,7 +256,6 @@ You can build nested conditions as well:
 ```
 
 ___
-
 
 
 ## Project status
