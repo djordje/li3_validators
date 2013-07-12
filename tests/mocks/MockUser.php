@@ -5,7 +5,7 @@ namespace li3_validators\tests\mocks;
 use lithium\data\entity\Record;
 use lithium\security\Password;
 
-class MockUser extends \lithium\tests\mocks\data\MockBase {
+class MockUser extends \lithium\tests\mocks\data\MockModel {
 
 	public static $connection = null;
 
